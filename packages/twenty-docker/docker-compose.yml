@@ -3,7 +3,7 @@ name: twenty
 services:
   server:
     build:
-      context: .
+      context: ../twenty-server
       dockerfile: packages/twenty-server/Dockerfile
     volumes:
       - server-local-data:/app/packages/twenty-server/.local-storage
@@ -29,7 +29,7 @@ services:
 
   worker:
     build:
-      context: .
+      context: ../twenty-server
       dockerfile: packages/twenty-server/Dockerfile
     volumes:
       - server-local-data:/app/packages/twenty-server/.local-storage
