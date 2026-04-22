@@ -3,7 +3,7 @@ name: twenty
 services:
   server:
     build:
-      context: ../../
+      context: .
       dockerfile: packages/twenty-server/Dockerfile
     volumes:
       - server-local-data:/app/packages/twenty-server/.local-storage
@@ -15,7 +15,6 @@ services:
       SERVER_URL: ${SERVER_URL}
       REDIS_URL: ${REDIS_URL:-redis://redis:6379}
       APP_SECRET: ${APP_SECRET:-replace_me_with_a_random_string}
-      # ... rest of your env vars unchanged
     depends_on:
       db:
         condition: service_healthy
@@ -30,7 +29,7 @@ services:
 
   worker:
     build:
-      context: ../../
+      context: .
       dockerfile: packages/twenty-server/Dockerfile
     volumes:
       - server-local-data:/app/packages/twenty-server/.local-storage
@@ -42,7 +41,6 @@ services:
       DISABLE_DB_MIGRATIONS: "true"
       DISABLE_CRON_JOBS_REGISTRATION: "true"
       APP_SECRET: ${APP_SECRET:-replace_me_with_a_random_string}
-      # ... rest of your env vars unchanged
     depends_on:
       db:
         condition: service_healthy
@@ -51,7 +49,7 @@ services:
     restart: always
 
   db:
-    image: postgres:16  # unchanged
+    image: postgres:16
     volumes:
       - db-data:/var/lib/postgresql/data
     environment:
@@ -66,7 +64,7 @@ services:
     restart: always
 
   redis:
-    image: redis  # unchanged
+    image: redis
     restart: always
     command: ["--maxmemory-policy", "noeviction"]
     healthcheck:
