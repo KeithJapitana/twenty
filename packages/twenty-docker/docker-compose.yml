@@ -12,6 +12,9 @@ services:
     labels:
       - caddy=https://twenty.synthtrix.com
       - caddy.reverse_proxy={{upstreams 3000}}
+    networks:
+      - default
+      - coolify
     environment:
       NODE_PORT: 3000
       PG_DATABASE_URL: postgres://${PG_DATABASE_USER:-postgres}:${PG_DATABASE_PASSWORD:-postgres}@db:5432/default
@@ -75,6 +78,10 @@ services:
       interval: 5s
       timeout: 5s
       retries: 10
+
+networks:
+  coolify:
+    external: true
 
 volumes:
   docker-data:
