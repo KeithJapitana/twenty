@@ -9,6 +9,9 @@ services:
       - docker-data:/app/docker-data
     expose:
       - "3000"
+    labels:
+      - caddy=https://twenty.synthtrix.com
+      - caddy.reverse_proxy={{upstreams 3000}}
     environment:
       NODE_PORT: 3000
       PG_DATABASE_URL: postgres://${PG_DATABASE_USER:-postgres}:${PG_DATABASE_PASSWORD:-postgres}@db:5432/default
