@@ -19,7 +19,7 @@ services:
       NODE_PORT: 3000
       PG_DATABASE_URL: postgres://${PG_DATABASE_USER:-postgres}:${PG_DATABASE_PASSWORD:-postgres}@db:5432/default
       SERVER_URL: ${SERVER_URL}
-      REDIS_URL: redis://10.0.4.10:6379
+      REDIS_URL: redis://10.0.10.10:6379
       APP_SECRET: ${APP_SECRET}
       STORAGE_TYPE: local
       DISABLE_DB_MIGRATIONS: "false"
@@ -44,7 +44,7 @@ services:
     environment:
       PG_DATABASE_URL: postgres://${PG_DATABASE_USER:-postgres}:${PG_DATABASE_PASSWORD:-postgres}@db:5432/default
       SERVER_URL: ${SERVER_URL}
-      REDIS_URL: redis://10.0.4.10:6379
+      REDIS_URL: redis://10.0.10.10:6379
       APP_SECRET: ${APP_SECRET}
       DISABLE_DB_MIGRATIONS: "true"
     depends_on:
@@ -74,7 +74,7 @@ services:
     restart: always
     networks:
       default:
-        ipv4_address: 10.0.4.10
+        ipv4_address: 10.0.10.10
     command: ["--maxmemory-policy", "noeviction"]
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
@@ -86,7 +86,7 @@ networks:
   default:
     ipam:
       config:
-        - subnet: 10.0.4.0/24
+        - subnet: 10.0.10.0/24
   coolify:
     external: true
 
