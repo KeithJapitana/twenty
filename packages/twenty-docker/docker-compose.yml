@@ -7,8 +7,8 @@ services:
     volumes:
       - server-local-data:/app/packages/twenty-server/.local-storage
       - docker-data:/app/docker-data
-    ports:
-      - "3000:3000"
+    expose:
+      - "3000"
     environment:
       NODE_PORT: 3000
       PG_DATABASE_URL: postgres://${PG_DATABASE_USER:-postgres}:${PG_DATABASE_PASSWORD:-postgres}@db:5432/default
@@ -45,7 +45,7 @@ services:
       db:
         condition: service_healthy
       server:
-        condition: service_healthy
+        condition: service_started
     restart: always
 
   db:
